@@ -58,6 +58,7 @@ jsonSource_Sub_councils_3.addFeatures(features_Sub_councils_3);
 
 
 var lyr_Sub_councils_3 = new ol.layer.Vector({
+    visible: false,
     declutter: false,
     source: jsonSource_Sub_councils_3,
     style: style_Sub_councils_3,
@@ -97,6 +98,7 @@ var jsonSource_RIM_DST_4 = new ol.source.Vector({
 });
 jsonSource_RIM_DST_4.addFeatures(features_RIM_DST_4);
 var lyr_RIM_DST_4 = new ol.layer.Vector({
+    visible: false,
     declutter: false,
     source: jsonSource_RIM_DST_4,
     style: style_RIM_DST_4,
