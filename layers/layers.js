@@ -157,15 +157,31 @@ var wpLayers = wpDefinitions.map(function(wp) {
 
     var wpLayer = new ol.layer.Vector({
         source: wpSource,
-        style: new ol.style.Style({
+       style: function(feature) {
+    return new ol.style.Style({
+        fill: new ol.style.Fill({
+            color: wp.color + '55'
+        }),
+        stroke: new ol.style.Stroke({
+            color: wp.color,
+            width: 2
+        }),
+        text: new ol.style.Text({
+            text: String(feature.get('WP NAME') || ''),
+            font: 'bold 13px Arial',
             fill: new ol.style.Fill({
-                color: wp.color + '55'
+                color: '#000000'
             }),
             stroke: new ol.style.Stroke({
-                color: wp.color,
-                width: 2
-            })
-        }),
+                color: '#ffffff',
+                width: 3
+            }),
+            overflow: true,
+            placement: 'point'
+        })
+    });
+},
+          
         title: wp.label || wp.name,
         popuplayertitle: 'Work Packages',
         interactive: true
