@@ -144,7 +144,6 @@ var wpDefinitions = [
     {name: '273Q-R4-03B', color: '#bfef45'},
     {name: '321Q-2021', color: '#fabed4'},
     {name: '392Q-R3AR-11', color: '#469990'},
-    {name: '', label: 'Unassigned / blank WP NAME', color: '#dcbeff'},
     {name: '49Q-R1-51', color: '#9a6324'},
     {name: '49Q-R4-10', color: '#800000'},
     {name: '49Q-R4-14', color: '#aaffc3'},
