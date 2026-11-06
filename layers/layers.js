@@ -279,8 +279,8 @@ var layersList = [
     lyr_Sub_councils_3,
     lyr_RIM_DST_4,
     lyr_Work_Packages,
-    lyr_Official_Planning_Suburbs_1,
     lyr_Wards_2,
+    lyr_Official_Planning_Suburbs_1,
     lyr_Regions_5
 ];
 lyr_Official_Planning_Suburbs_1.set('fieldAliases', {'OBJECTID': 'OBJECTID', 'GlobalID': 'GlobalID', 'SL_OFC_SBR': 'SL_OFC_SBR', 'OFC_SBRB_N': 'OFC_SBRB_N', 'created_us': 'created_us', 'created_da': 'created_da', 'last_edite': 'last_edite', 'last_edi_1': 'last_edi_1', 'Shape_Leng': 'Shape_Leng', 'Shape_Area': 'Shape_Area', });
