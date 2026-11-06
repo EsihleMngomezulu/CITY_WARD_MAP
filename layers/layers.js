@@ -167,8 +167,6 @@ if (isHatched) {
     canvas.height = 12;
 
     var context = canvas.getContext('2d');
-   context.fillStyle = '#ffffff';
-context.fillRect(0, 0, canvas.width, canvas.height);
 
 context.strokeStyle = wp.color;
 context.lineWidth = 2;
