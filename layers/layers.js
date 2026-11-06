@@ -155,37 +155,65 @@ var wpDefinitions = [
 var wpLayers = wpDefinitions.map(function(wp) {
     var wpSource = new ol.source.Vector();
 
-    var wpLayer = new ol.layer.Vector({
-        source: wpSource,
-       style: function(feature) {
-    return new ol.style.Style({
-        fill: new ol.style.Fill({
-            color: wp.color + '55'
-        }),
-        stroke: new ol.style.Stroke({
-            color: wp.color,
-            width: 2
-        }),
-        text: new ol.style.Text({
-            text: String(feature.get('WP NAME') || ''),
-            font: 'bold 13px Arial',
+   
+var isHatched = wp.name === '49Q-R4-10' ||
+                wp.name === '49Q-R4-14';
+
+var hatchPattern = null;
+
+if (isHatched) {
+    var canvas = document.createElement('canvas');
+    canvas.width = 12;
+    canvas.height = 12;
+
+    var context = canvas.getContext('2d');
+   context.fillStyle = '#ffffff';
+context.fillRect(0, 0, canvas.width, canvas.height);
+
+context.strokeStyle = wp.color;
+context.lineWidth = 2;
+
+    context.beginPath();
+    context.moveTo(-3, 12);
+    context.lineTo(12, -3);
+    context.moveTo(3, 15);
+    context.lineTo(15, 3);
+    context.stroke();
+
+    hatchPattern = context.createPattern(canvas, 'repeat');
+}
+
+var wpLayer = new ol.layer.Vector({
+    source: wpSource,
+    style: function(feature) {
+        return new ol.style.Style({
             fill: new ol.style.Fill({
-                color: '#000000'
+                color: isHatched ? hatchPattern : wp.color + '55'
             }),
             stroke: new ol.style.Stroke({
-                color: '#ffffff',
-                width: 3
+                color: wp.color,
+                width: 2
             }),
-            overflow: true,
-            placement: 'point'
-        })
-    });
-},
-          
-        title: wp.label || wp.name,
-        popuplayertitle: 'Work Packages',
-        interactive: true
-    });
+            text: new ol.style.Text({
+                text: String(feature.get('WP NAME') || ''),
+                font: 'bold 13px Arial',
+                fill: new ol.style.Fill({
+                    color: '#000000'
+                }),
+                stroke: new ol.style.Stroke({
+                    color: '#ffffff',
+                    width: 3
+                }),
+                overflow: true,
+                placement: 'point'
+            })
+        });
+    },
+    title: wp.name,
+    popuplayertitle: 'Work Packages',
+    interactive: true
+});
+ 
 
     wpLayer.set('wpValue', wp.name);
     wpLayer.setVisible(false);
