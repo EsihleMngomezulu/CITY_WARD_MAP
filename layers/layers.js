@@ -129,6 +129,101 @@ var lyr_Regions_5 = new ol.layer.Vector({
                 title: '<img src="styles/legend/Regions_5.png" /> Regions'
             });
 
+// ========================================
+// WORK PACKAGES - INDIVIDUAL LAYERS
+// ========================================
+
+var wpDefinitions = [
+    {name: '273Q-R2-01', color: '#e6194b'},
+    {name: '273Q-R2-02', color: '#3cb44b'},
+    {name: '273Q-R2-03', color: '#4363d8'},
+    {name: '273Q-R3-01', color: '#f58231'},
+    {name: '273Q-R3-02', color: '#911eb4'},
+    {name: '273Q-R4-01A', color: '#42d4f4'},
+    {name: '273Q-R4-02B', color: '#f032e6'},
+    {name: '273Q-R4-03B', color: '#bfef45'},
+    {name: '321Q-2021', color: '#fabed4'},
+    {name: '392Q-R3AR-11', color: '#469990'},
+    {name: '', label: 'Unassigned / blank WP NAME', color: '#dcbeff'},
+    {name: '49Q-R1-51', color: '#9a6324'},
+    {name: '49Q-R4-10', color: '#800000'},
+    {name: '49Q-R4-14', color: '#aaffc3'},
+    {name: '49Q-R4-R07', color: '#808000'},
+    {name: '49Q-R4-R09', color: '#000075'},
+    {name: 'RIM Dist3', color: '#a9a9a9'}
+];
+
+var wpLayers = wpDefinitions.map(function(wp) {
+    var wpSource = new ol.source.Vector();
+
+    var wpLayer = new ol.layer.Vector({
+        source: wpSource,
+        style: new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: wp.color + '55'
+            }),
+            stroke: new ol.style.Stroke({
+                color: wp.color,
+                width: 2
+            })
+        }),
+        title: wp.label || wp.name,
+        popuplayertitle: 'Work Packages',
+        interactive: true
+    });
+
+    wpLayer.set('wpValue', wp.name);
+    wpLayer.setVisible(false);
+
+    return wpLayer;
+});
+
+var lyr_Work_Packages = new ol.layer.Group({
+    title: 'Work Packages',
+    fold: 'close',
+    layers: wpLayers
+});
+
+// Load the original GeoJSON file without renaming it
+fetch('./Work%20Packages.geojson')
+    .then(function(response) {
+        if (!response.ok) {
+            throw new Error('Could not load Work Packages.geojson');
+        }
+        return response.json();
+    })
+    .then(function(data) {
+        var wpFormat = new ol.format.GeoJSON();
+
+        var wpFeatures = wpFormat.readFeatures(data, {
+            dataProjection: 'EPSG:4326',
+            featureProjection: 'EPSG:3857'
+        });
+
+        wpLayers.forEach(function(layer) {
+            var wpValue = layer.get('wpValue');
+
+            var matchingFeatures = wpFeatures.filter(function(feature) {
+                var featureName = feature.get('WP NAME');
+
+                if (wpValue === '') {
+                    return featureName === null ||
+                           featureName === undefined ||
+                           String(featureName).trim() === '';
+                }
+
+                return String(featureName).trim() === wpValue;
+            });
+
+            layer.getSource().addFeatures(matchingFeatures);
+        });
+
+        console.log('Work Packages loaded:', wpFeatures.length);
+    })
+    .catch(function(error) {
+        console.error('Work Packages loading error:', error);
+    });
+
 lyr_ESRITopo_0.setVisible(true);
 lyr_Official_Planning_Suburbs_1.setVisible(true);
 lyr_Wards_2.setVisible(true);
@@ -140,6 +235,7 @@ var layersList = [
     lyr_ESRITopo_0,
     lyr_Sub_councils_3,
     lyr_RIM_DST_4,
+    lyr_Work_Packages,
     lyr_Official_Planning_Suburbs_1,
     lyr_Wards_2,
     lyr_Regions_5
