@@ -165,17 +165,18 @@ var hatchPattern = null;
 
 if (isHatched) {
     var canvas = document.createElement('canvas');
-    canvas.width = 24;
-    canvas.height = 24;
+    canvas.width = 20;
+    canvas.height = 20;
 
     var context = canvas.getContext('2d');
 
 context.strokeStyle = wp.color;
-context.lineWidth = 1.5;
+context.lineWidth = 2;
+context.globalAlpha = 1;
 
     context.beginPath();
-    context.moveTo(-6, 24);
-    context.lineTo(24, -6);
+    context.moveTo(-2, 20);
+    context.lineTo(20, -2);
     context.stroke();
 
     hatchPattern = context.createPattern(canvas, 'repeat');
