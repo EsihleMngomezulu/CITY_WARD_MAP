@@ -270,9 +270,9 @@ fetch('./Work%20Packages.geojson')
 lyr_ESRITopo_0.setVisible(true);
 lyr_Official_Planning_Suburbs_1.setVisible(true);
 lyr_Wards_2.setVisible(true);
-lyr_RIM_DST_4.setVisible(true);
+lyr_RIM_DST_4.setVisible(false);
 lyr_Regions_5.setVisible(true);
-lyr_Sub_councils_3.setVisible(true);
+lyr_Sub_councils_3.setVisible(false);
 
 var layersList = [
     lyr_ESRITopo_0,
