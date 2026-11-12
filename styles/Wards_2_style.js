@@ -9,7 +9,7 @@ var style_Wards_2 = function(feature, resolution){
     
     var labelText = ""; 
     var value = feature.get("");
-    var labelFont = "bold 13px \'Open Sans\', sans-serif";
+    var labelFont = "bold 18px \'Open Sans\', sans-serif";
     var labelFill = "#e05ccc";
     var bufferColor = "";
     var bufferWidth = 0;
@@ -23,7 +23,7 @@ var style_Wards_2 = function(feature, resolution){
         labelText = String(feature.get("WARD_NAME"));
     }
     var style = [ new ol.style.Style({
-        stroke: new ol.style.Stroke({color: 'rgba(236,26,205,0.30)', lineDash: null, lineCap: 'square', lineJoin: 'bevel', width: 4.4079999999999995}),
+        stroke: new ol.style.Stroke({color: 'rgba(236,26,205,0.30)', lineDash: null, lineCap: 'square', lineJoin: 'bevel', width: 6}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth, textAlign, offsetX, offsetY, overflow, repeat)
